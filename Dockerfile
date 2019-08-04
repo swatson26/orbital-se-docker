@@ -20,6 +20,7 @@ RUN apt-get update && \
         libsqlite3-dev \
         libspatialite-dev \
         python3 \
+        curl \
         python3-dev \
         python3-numpy
 

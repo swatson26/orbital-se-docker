@@ -9,8 +9,8 @@ RUN pip install pyshp
 RUN pip install plotly
 RUN pip install cufflinks
 # Install this lab extension
-jupyter labextension install @johnkit/jupyterlab_geojs
+RUN jupyter labextension install @johnkit/jupyterlab_geojs
 # Also need to install the widget-manager extension
-jupyter labextension install @jupyter-widgets/jupyterlab-manager
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
 # Install the python package
-pip install jupyterlab_geojs
+RUN pip install jupyterlab_geojs

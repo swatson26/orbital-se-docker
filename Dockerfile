@@ -8,9 +8,7 @@ RUN pip install shapely
 RUN pip install pyshp
 RUN pip install plotly
 RUN pip install cufflinks
-# Install this lab extension
-RUN jupyter labextension install @johnkit/jupyterlab_geojs
-# Also need to install the widget-manager extension
+RUN pip install s3fs
+RUN conda install -c esri arcgis=1.6.2 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
-# Install the python package
-RUN pip install jupyterlab_geojs
+RUN jupyter labextension install arcgis-map-ipywidget@1.6.2

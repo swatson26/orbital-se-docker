@@ -6,3 +6,5 @@ FROM jupyter/minimal-notebook:177037d09156
 
 # install additional package...
 RUN pip install --no-cache-dir astropy
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["jupyter", "lab"]

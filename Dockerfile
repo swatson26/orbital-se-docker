@@ -5,7 +5,8 @@ s# Refer to https://zero-to-jupyterhub.readthedocs.io/en/latest/user-environment
 # Inspect the Dockerfile at:
 #   https://github.com/jupyter/docker-stacks/tree/master/minimal-notebook/Dockerfile
 FROM jupyter/minimal-notebook:4cdbc9cdb7d1
-
+ARG GIT_COMMIT=unspecified
+LABEL git_commit=$GIT_COMMIT
 # Install nbgitpuller to synchronize a folder in a user's filesystem
 # with a git repository whenever the user starts their server.
 RUN pip install --no-cache-dir nbgitpuller

@@ -52,6 +52,7 @@ RUN conda install --quiet --yes nb_conda_kernels && \
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install jupyter-leaflet && \
 	jupyter labextension install jupyterlab-dash  && \
+	jupyter labextension install @jupyterlab/geojson-extension && \
 	jupyter labextension install arcgis-map-ipywidget@1.6.2  && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER

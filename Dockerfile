@@ -33,7 +33,7 @@ RUN conda install --quiet --yes  \
 
 RUN conda install -c plotly jupyterlab-dash
 RUN conda install -c anaconda statsmodels
-RUN conda install -c conda-forge geopandas
+RUN conda install geopandas
 RUN conda install -c esri arcgis=1.6.2
 
 RUN conda clean -a -y && \

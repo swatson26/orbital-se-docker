@@ -10,14 +10,13 @@ LABEL git_commit=$GIT_COMMIT
 # with a git repository whenever the user starts their server.
 RUN pip install --no-cache-dir nbgitpuller
 RUN conda update -n base conda
-RUN conda config --set channel_priority strict
 RUN pip install workalendar
-RUN conda install -c conda-forge geopandas
-RUN conda install --quiet --yes  \
+RUN conda install --quiet --yes \
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
     jupyterlab=1.0.4 \
 	boto3=1.9.179 \
+    geopandas=0.5.0 \
 	descartes=1.1.0 \
 	ipyleaflet=0.10.8 \
 	matplotlib=3.1.0 \

@@ -26,20 +26,20 @@ RUN conda install --quiet --yes -n base \
 	s3fs \
 	seaborn=0.9.0 \
 	shapely=1.6.4 && \
-	conda clean -a -y -n base && \
+	conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
 
 RUN conda install -n base -c plotly jupyterlab-dash
 RUN conda install -n base -c conda-forge statsmodels
-RUN conda clean -a -y -n base && \
+RUN conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
 
 RUN conda install -n base --quiet --yes nb_conda_kernels && \
 	conda install -n base --quiet --yes  \
 	ipykernel=5.1.1 && \
-	conda clean -a -y -n base && \
+	conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
 

@@ -33,7 +33,6 @@ RUN conda install --quiet --yes  \
 
 RUN conda install -c plotly jupyterlab-dash
 RUN conda install -c conda-forge statsmodels
-RUN conda install -c esri arcgis=1.6.2
 RUN conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER

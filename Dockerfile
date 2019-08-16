@@ -10,9 +10,9 @@ LABEL git_commit=$GIT_COMMIT
 # with a git repository whenever the user starts their server.
 RUN pip install --no-cache-dir nbgitpuller
 RUN conda update -n base conda
-
+RUN conda config --set channel_priority strict
 RUN pip install workalendar
-
+RUN conda install -c conda-forge geopandas
 RUN conda install --quiet --yes  \
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
@@ -22,7 +22,6 @@ RUN conda install --quiet --yes  \
 	ipyleaflet=0.10.8 \
 	matplotlib=3.1.0 \
 	plotly=4.0.0 \
-    geopandas \
 	scikit-learn=0.21.2 \
 	scipy=1.3.0 \
 	s3fs \
@@ -31,15 +30,12 @@ RUN conda install --quiet --yes  \
 	conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-
 RUN conda install -c plotly jupyterlab-dash
 RUN conda install -c anaconda statsmodels
 RUN conda install -c esri arcgis=1.6.2
-
 RUN conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-
 # Make the cubeenv kernel available in Jupyter
 RUN conda install --quiet --yes nb_conda_kernels && \
 	conda install --quiet --yes  \
@@ -47,7 +43,6 @@ RUN conda install --quiet --yes nb_conda_kernels && \
 	conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-
 # Enable Lab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install jupyter-leaflet && \

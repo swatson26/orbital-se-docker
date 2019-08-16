@@ -22,6 +22,7 @@ RUN conda install --quiet --yes  \
 	ipyleaflet=0.10.8 \
 	matplotlib=3.1.0 \
 	plotly=4.0.0 \
+    geopandas \
 	scikit-learn=0.21.2 \
 	scipy=1.3.0 \
 	s3fs \
@@ -33,7 +34,6 @@ RUN conda install --quiet --yes  \
 
 RUN conda install -c plotly jupyterlab-dash
 RUN conda install -c anaconda statsmodels
-RUN conda install geopandas
 RUN conda install -c esri arcgis=1.6.2
 
 RUN conda clean -a -y && \

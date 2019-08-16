@@ -11,7 +11,7 @@ LABEL git_commit=$GIT_COMMIT
 RUN pip install --no-cache-dir nbgitpuller
 RUN conda update -n base conda
 RUN pip install workalendar
-RUN conda install --quiet --yes \
+RUN conda install --quiet --yes -n base \
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
     jupyterlab=1.0.4 \
@@ -26,22 +26,23 @@ RUN conda install --quiet --yes \
 	s3fs \
 	seaborn=0.9.0 \
 	shapely=1.6.4 && \
-	conda clean -a -y && \
+	conda clean -a -y -n base && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
 
-RUN conda install -c plotly jupyterlab-dash
-RUN conda install -c conda-forge statsmodels
-RUN conda clean -a -y && \
+RUN conda install -n base -c plotly jupyterlab-dash
+RUN conda install -n base -c conda-forge statsmodels
+RUN conda clean -a -y -n base && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-# Make the cubeenv kernel available in Jupyter
-RUN conda install --quiet --yes nb_conda_kernels && \
-	conda install --quiet --yes  \
+
+RUN conda install -n base --quiet --yes nb_conda_kernels && \
+	conda install -n base --quiet --yes  \
 	ipykernel=5.1.1 && \
-	conda clean -a -y && \
+	conda clean -a -y -n base && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
+
 # Enable Lab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install jupyter-leaflet && \

@@ -9,9 +9,10 @@ LABEL git_commit=$GIT_COMMIT
 # Install nbgitpuller to synchronize a folder in a user's filesystem
 # with a git repository whenever the user starts their server.
 RUN pip install --no-cache-dir nbgitpuller
+RUN conda config --set channel_priority strict
 RUN conda update -n base conda
 RUN pip install workalendar
-RUN conda install --quiet --yes -n base \
+RUN conda install --quiet --yes -n base -c conda-forge\
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
     jupyterlab=1.0.4 \

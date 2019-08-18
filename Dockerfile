@@ -43,7 +43,8 @@ RUN conda install -n base --quiet --yes nb_conda_kernels && \
 	conda clean -a -y && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-
+# not sure why conda is not setting this https://github.com/conda-forge/pyproj-feedstock/issues/29
+RUN export PROJ_LIB=/opt/conda/share/proj
 # Enable Lab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install jupyter-leaflet && \

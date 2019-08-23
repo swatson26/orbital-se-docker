@@ -21,7 +21,7 @@ RUN conda install --quiet --yes -n base -c conda-forge\
 	descartes=1.1.0 \
 	ipyleaflet=0.10.8 \
 	matplotlib=3.1.0 \
-	plotly=4.0.0 \
+	plotly=4.1.0 \
 	scikit-learn=0.21.2 \
 	scipy=1.3.0 \
 	s3fs \

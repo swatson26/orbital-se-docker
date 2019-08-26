@@ -4,12 +4,12 @@
 # Inspect the Dockerfile at:
 #   https://github.com/jupyter/docker-stacks/tree/master/minimal-notebook/Dockerfile
 FROM jupyter/minimal-notebook:4cdbc9cdb7d1
+RUN pip install --no-cache-dir nbgitpuller
 FROM jupyter/nbviewer
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
 # Install nbgitpuller to synchronize a folder in a user's filesystem
 # with a git repository whenever the user starts their server.
-RUN pip install --no-cache-dir nbgitpuller
 RUN conda config --set channel_priority strict
 RUN conda update -n base conda
 RUN pip install workalendar

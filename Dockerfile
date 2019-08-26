@@ -18,7 +18,6 @@ RUN conda install --quiet --yes -n base -c conda-forge\
     jupyterhub=1.0.0 \
     nbconvert \
     nbformat \
-    nbexamples \
     jupyterlab=1.0.4 \
 	boto3=1.9.179 \
     geopandas=0.5.0 \

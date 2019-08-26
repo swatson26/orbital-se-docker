@@ -4,6 +4,7 @@
 # Inspect the Dockerfile at:
 #   https://github.com/jupyter/docker-stacks/tree/master/minimal-notebook/Dockerfile
 FROM jupyter/minimal-notebook:4cdbc9cdb7d1
+FROM jupyter/nbviewer
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
 # Install nbgitpuller to synchronize a folder in a user's filesystem
@@ -56,4 +57,3 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install arcgis-map-ipywidget@1.6.2  && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-RUN docker pull jupyter/nbviewer

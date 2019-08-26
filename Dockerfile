@@ -15,6 +15,8 @@ RUN pip install workalendar
 RUN conda install --quiet --yes -n base -c conda-forge\
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
+    nbconvert \
+    nbformat \
     jupyterlab=1.0.4 \
 	boto3=1.9.179 \
     geopandas=0.5.0 \

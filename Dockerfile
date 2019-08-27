@@ -48,8 +48,12 @@ RUN conda install -n base --quiet --yes nb_conda_kernels && \
 	fix-permissions /home/$NB_USER
 # not sure why conda is not setting this https://github.com/conda-forge/pyproj-feedstock/issues/29
 ENV PROJ_LIB=/opt/conda/share/proj
+
+RUN git clone https://github.com/Calysto/notebook-extensions.git
+
 # Enable Lab extensions
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
+    jupyter labextension install calysto && \
 	jupyter labextension install jupyter-leaflet && \
 	jupyter labextension install jupyterlab-dash  && \
 	jupyter labextension install @jupyterlab/geojson-extension && \

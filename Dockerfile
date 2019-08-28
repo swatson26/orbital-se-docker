@@ -57,5 +57,6 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install arcgis-map-ipywidget@1.6.2  && \
     jupyter labextension install @jupyterlab/hub-extension  && \
     jupyter labextension install @jupyterlab/toc && \
+    jupyter labextension install @jupyterlab/htmlviewer-extension && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER

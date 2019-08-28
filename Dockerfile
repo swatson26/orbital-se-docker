@@ -55,5 +55,7 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	jupyter labextension install jupyterlab-dash  && \
 	jupyter labextension install @jupyterlab/geojson-extension && \
 	jupyter labextension install arcgis-map-ipywidget@1.6.2  && \
+    jupyter labextension install @jupyterlab/hub-extension  && \
+    jupyter labextension install @jupyterlab/toc && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER

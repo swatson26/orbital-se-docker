@@ -60,3 +60,4 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     jupyter labextension install @jupyterlab/htmlviewer-extension && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
+RUN pip install awscli --upgrade --user

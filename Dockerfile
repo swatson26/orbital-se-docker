@@ -4,7 +4,6 @@
 # Inspect the Dockerfile at:
 #   https://github.com/jupyter/docker-stacks/tree/master/minimal-notebook/Dockerfile
 FROM jupyter/minimal-notebook:4cdbc9cdb7d1
-FROM esridocker/arcgis-api-python-notebook:v1.6.2
 RUN pip install --no-cache-dir nbgitpuller
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT

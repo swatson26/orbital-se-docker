@@ -3,8 +3,8 @@
 #   https://hub.docker.com/r/jupyter/minimal-notebook/tags/
 # Inspect the Dockerfile at:
 #   https://github.com/jupyter/docker-stacks/tree/master/minimal-notebook/Dockerfile
-FROM jupyter/nbviewer
 FROM jupyter/minimal-notebook:4cdbc9cdb7d1
+FROM esridocker/arcgis-api-python-notebook:v1.6.2
 RUN pip install --no-cache-dir nbgitpuller
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
@@ -60,4 +60,4 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     jupyter labextension install @jupyterlab/htmlviewer-extension && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
-RUN pip install awscli --upgrade --user
+RUN pip install awscli

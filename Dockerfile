@@ -60,3 +60,4 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
 	fix-permissions $CONDA_DIR && \
 	fix-permissions /home/$NB_USER
 RUN pip install awscli
+RUN pip install arcgis

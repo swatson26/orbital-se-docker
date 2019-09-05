@@ -6,8 +6,8 @@
 FROM jupyter/minimal-notebook:4cdbc9cdb7d1
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
-RUN pip install --no-cache-dir nbgitpuller \
-    awscli \
+RUN pip install --no-cache-dir nbgitpuller
+RUN pip install awscli \
     arcgis==v1.6.2-post1 \
     workalendar \
 RUN conda config --set channel_priority strict

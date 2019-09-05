@@ -9,7 +9,7 @@ LABEL git_commit=$GIT_COMMIT
 RUN pip install --no-cache-dir nbgitpuller
 RUN pip install awscli \
     arcgis==v1.6.2-post1 \
-    workalendar \
+    workalendar
 RUN conda config --set channel_priority strict
 RUN conda update -n base conda
 RUN conda install --quiet --yes -n base -c conda-forge\

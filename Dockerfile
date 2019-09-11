@@ -13,7 +13,7 @@ RUN pip install awscli \
     envbash
 RUN conda config --set channel_priority strict
 RUN conda update -n base conda
-RUN conda install --quiet --yes -n base -c conda-forge\
+RUN conda install --quiet --yes -n base -c conda-forge \
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
     vim \
@@ -22,9 +22,14 @@ RUN conda install --quiet --yes -n base -c conda-forge\
     jupyterlab=1.1.2 \
 	boto3=1.9.179 \
     geopandas=0.5.0 \
-	descartes=1.1.0 \
-	ipyleaflet \
+	descartes=1.1.0
+RUN conda clean -a -y && \
+	fix-permissions $CONDA_DIR && \
+	fix-permissions /home/$NB_USER
+RUN conda install --quiet --yes -n base -c conda-forge \
+    ipyleaflet \
 	matplotlib=3.1.0 \
+    ipywidgets=7.5 \
 	plotly=4.1.0 \
 	scikit-learn=0.21.2 \
 	scipy=1.3.0 \
@@ -42,5 +47,28 @@ RUN conda clean -a -y && \
 	fix-permissions /home/$NB_USER
 # not sure why conda is not setting this https://github.com/conda-forge/pyproj-feedstock/issues/29
 ENV PROJ_LIB=/opt/conda/share/proj
-RUN export PYTHONPATH=$PYTHONPATH:/home/jovyan/demos
+ENV PYTHONPATH=$PYTHONPATH:/home/jovyan
+ENV NODE_OPTIONS=--max-old-space-size=4096
 # Enable Lab extensions
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.0 --no-build  && \
+    jupyter labextension install @jupyterlab/geojson-extension --no-build && \
+    jupyter labextension install @jupyterlab/toc --no-build && \
+    jupyter labextension install jupyterlab-dash --no-build
+RUN npm cache clean --force  && \
+    rm -rf .cache/yarn  && \
+    rm -rf .cache/pip  && \
+    jupyter lab clean && \
+    jlpm cache clean && \
+    rm -rf $HOME/.node-gyp && \
+    rm -rf $HOME/.local
+RUN jupyter labextension install plotlywidget --no-build && \
+    jupyter labextension install jupyterlab-plotly --no-build && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet --no-build
+RUN jupyter lab build --dev-build=False --minimize=False && \
+    jupyter lab clean && \
+    npm cache clean --force  && \
+    rm -rf .cache/yarn  && \
+    rm -rf .cache/pip  && \
+    jlpm cache clean && \
+    rm -rf $HOME/.node-gyp && \
+    rm -rf $HOME/.local

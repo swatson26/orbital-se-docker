@@ -3,10 +3,9 @@
 #   https://hub.docker.com/r/jupyter/minimal-notebook/tags/
 # Inspect the Dockerfile at:
 #   https://github.com/jupyter/docker-stacks/tree/master/minimal-notebook/Dockerfile
-FROM jupyter/minimal-notebook:4cdbc9cdb7d1
+FROM jupyter/minimal-notebook:4cdbc9cdb7d1 as base
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
-RUN pip install --no-cache-dir nbgitpuller
 RUN pip install awscli \
     arcgis==v1.6.2-post1 \
     workalendar \
@@ -17,6 +16,7 @@ RUN conda install --quiet --yes -n base -c conda-forge \
     notebook=6.0.0 \
     jupyterhub=1.0.0 \
     vim \
+    openssh \
     nbconvert \
     nbformat \
     jupyterlab=1.1.2 \
@@ -48,8 +48,11 @@ RUN conda clean -a -y && \
 # not sure why conda is not setting this https://github.com/conda-forge/pyproj-feedstock/issues/29
 ENV PROJ_LIB=/opt/conda/share/proj
 ENV PYTHONPATH=$PYTHONPATH:/home/jovyan
-ENV NODE_OPTIONS=--max-old-space-size=4096
-# Enable Lab extensions
+ENV NODE_OPTIONS=--max-old-space-size=8000
+RUN npm install -g increase-memory-limit
+RUN increase-memory-limit
+# Enable Lab extensions - ran into a bunch of out of memory issues hence
+# the janky-ness
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager@1.0 --no-build  && \
     jupyter labextension install @jupyterlab/geojson-extension --no-build && \
     jupyter labextension install @jupyterlab/toc --no-build && \
@@ -64,6 +67,13 @@ RUN npm cache clean --force  && \
 RUN jupyter labextension install plotlywidget --no-build && \
     jupyter labextension install jupyterlab-plotly --no-build && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet --no-build
+    RUN npm cache clean --force  && \
+        rm -rf .cache/yarn  && \
+        rm -rf .cache/pip  && \
+        jupyter lab clean && \
+        jlpm cache clean && \
+        rm -rf $HOME/.node-gyp && \
+        rm -rf $HOME/.local
 RUN jupyter lab build --dev-build=False --minimize=False && \
     jupyter lab clean && \
     npm cache clean --force  && \
@@ -72,3 +82,14 @@ RUN jupyter lab build --dev-build=False --minimize=False && \
     jlpm cache clean && \
     rm -rf $HOME/.node-gyp && \
     rm -rf $HOME/.local
+RUN touch /home/jovyan/.profile
+
+FROM ubuntu as intermediate
+RUN apt-get update
+RUN apt-get install -y git
+ARG GIT_TOKEN
+ENV GIT_TOKEN=$GIT_TOKEN
+RUN git clone https://$GIT_TOKEN@github.com/orbitalinsight/demos.git
+
+FROM base
+COPY --from=intermediate /demos /home/jovyan/demos
